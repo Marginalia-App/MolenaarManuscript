@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 44 40% 88%;
+    --foreground: 28 28% 13%;
+
+    --paper: 43 42% 90%;
+    --paper-dark: 40 30% 82%;
+    --paper-aged: 45 35% 78%;
+
+    --ink: 28 30% 12%;
+    --ink-soft: 28 18% 26%;
+    --ink-faint: 30 12% 42%;
+
+    --ochre: 42 62% 38%;
+    --wallpaper: 47 55% 58%;
+    --oxblood: 4 58% 34%;
+
+    --border: 38 24% 62%;
+    --muted: 40 24% 80%;
+    --muted-foreground: 30 14% 38%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: "EB Garamond", Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: hsl(var(--oxblood) / 0.75);
+    color: hsl(var(--paper));
+  }
+
+  h1, h2, h3, h4 {
+    font-family: "Playfair Display", Georgia, serif;
+    color: hsl(var(--ink));
+    line-height: 1.1;
+  }
+}
+
+@layer components {
+  /* Aged paper base */
+  .paper-surface {
+    background-color: hsl(var(--paper));
+    background-image:
+      radial-gradient(ellipse at top left, hsl(var(--paper-aged) / 0.8), transparent 55%),
+      radial-gradient(ellipse at bottom right, hsl(var(--paper-aged) / 0.7), transparent 60%);
+    box-shadow: var(--shadow-page, 0 20px 60px -25px hsl(var(--ink) / 0.55));
+  }
+
+  /* Creeping yellow-wallpaper overlay */
+  .wallpaper-veil {
+    background-image: var(--wallpaper-image);
+    background-size: 340px;
+    background-repeat: repeat;
+    mix-blend-mode: multiply;
+  }
+
+  .fibered {
+    position: relative;
+  }
+  .fibered::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      repeating-linear-gradient(0deg, hsl(var(--ink) / 0.02) 0 1px, transparent 1px 3px);
+    opacity: 0.5;
+  }
+
+  /* House-of-Leaves style footnote marker */
+  .footnote-ref {
+    font-family: "Special Elite", monospace;
+    font-size: 0.7em;
+    color: hsl(var(--oxblood));
+    vertical-align: super;
+    cursor: help;
+    border-bottom: 1px dotted hsl(var(--oxblood) / 0.6);
+    transition: background-color 0.2s ease;
+  }
+  .footnote-ref:hover {
+    background: hsl(var(--wallpaper) / 0.4);
+  }
+
+  .type-mark {
+    font-family: "Special Elite", monospace;
+    letter-spacing: 0.02em;
+  }
+
+  .rule-ornament {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      hsl(var(--ink) / 0.5),
+      transparent
+    );
+  }
+
+  .drop-cap::first-letter {
+    font-family: "Playfair Display", serif;
+    font-weight: 700;
+    float: left;
+    font-size: 4.2rem;
+    line-height: 0.8;
+    padding: 0.1em 0.12em 0 0;
+    color: hsl(var(--oxblood));
+  }
+
+  .link-underline {
+    background-image: linear-gradient(hsl(var(--oxblood)), hsl(var(--oxblood)));
+    background-size: 0% 1px;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    transition: background-size 0.3s ease;
+  }
+  .link-underline:hover {
+    background-size: 100% 1px;
+  }
+}
